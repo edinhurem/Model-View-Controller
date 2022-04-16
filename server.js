@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const handlebars = require('express-handlebars');
 const routes = require('./controllers');
 
 const sequelize = require('./config/connection');
@@ -14,9 +15,22 @@ const sess = {
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
-    db: sequelize
-  })
+    db: sequelize,
+  }),
 };
+
+//setup handlebars defaults
+app.set('view engine', 'tmpl');
+app.engine(
+  'handlebars',
+  handlebars({
+    layoutsDir: __dirname + '/views/layouts',
+  })
+);
+app.use(express.static('public'));
+app.get('/', (req, res) => {
+  res.render('main', { layout: 'index' });
+});
 
 app.use(session(sess));
 
