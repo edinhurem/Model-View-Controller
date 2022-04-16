@@ -22,9 +22,10 @@ const sess = {
 //setup handlebars defaults
 app.set('view engine', 'tmpl');
 app.engine(
-  'handlebars',
+  'tmpl',
   handlebars({
     layoutsDir: __dirname + '/views/layouts',
+    extname: 'tmpl',
   })
 );
 app.use(express.static('public'));
