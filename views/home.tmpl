@@ -1,1 +1,15 @@
-home page
+<div class="col-sm-12">
+  {{#each data}}
+    <div class="project-container">
+      <div class="project-wrapper row">
+        <div class="project-header col-sm-12">
+            <div class="project-name col-sm-7">{{name}}</div>
+            <div class="project-creator col-sm-5">{{date_created}}</div>
+        </div>
+        <div class="project-content col-sm-12">
+          {{description}}
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>

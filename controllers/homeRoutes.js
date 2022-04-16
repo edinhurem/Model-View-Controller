@@ -1,12 +1,21 @@
 const router = require('express').Router();
 const { User, Project } = require('../models');
 
-// GET all galleries for homepage
 router.get('/', async (req, res) => {
   try {
     //we need to get the list of projects and their creators for display
-
-    res.render('home', { layout: 'main' });
+    let data = await Project.findAll({
+      raw: true,
+      nest: true,
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
+    console.log(data);
+    res.render('home', { data: data });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -17,7 +26,18 @@ router.get('/Dashboard', async (req, res) => {
   try {
     //we need to get the list of projects and their creators for display
 
-    res.render('dashboard', { layout: 'main' });
+    res.render('dashboard', {});
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+router.get('/NewProject', async (req, res) => {
+  try {
+    //we need to get the list of projects and their creators for display
+
+    res.render('newproject', {});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -28,7 +48,7 @@ router.get('/Register', async (req, res) => {
   try {
     //we need to get the list of projects and their creators for display
 
-    res.render('register', { layout: 'main' });
+    res.render('register', {});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -39,7 +59,7 @@ router.get('/Login', async (req, res) => {
   try {
     //we need to get the list of projects and their creators for display
 
-    res.render('login', { layout: 'main' });
+    res.render('login', {});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -50,7 +70,7 @@ router.get('/Logout', async (req, res) => {
   try {
     //we need to get the list of projects and their creators for display
 
-    res.render('logout', { layout: 'main' });
+    res.render('logout', {});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
