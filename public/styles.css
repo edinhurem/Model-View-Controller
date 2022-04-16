@@ -16,3 +16,41 @@ footer {
   background-color: rgb(38, 112, 173);
   border-top: 2px solid black;
 }
+
+.project-container {
+  padding: 12px;
+}
+
+.project-wrapper {
+  border: 1px solid black;
+}
+
+.project-header {
+  padding: 5px;
+  background-color:rgb(38, 112, 173);
+  color: white;
+  font-weight: bold;
+  border: 1px solid black;
+}
+
+.project-content {
+  padding: 15px;
+}
+
+.project-date {
+  display: inline-block;
+  position: relative;
+  width: 120px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.project-creator {
+  text-align: right;
+  word-wrap: none;
+}
+
+.inline-block {
+  display: inline-block;
+  vertical-align: top;
+}

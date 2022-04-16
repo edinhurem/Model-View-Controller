@@ -19,6 +19,27 @@ const sess = {
   }),
 };
 
+//custom handlebar helpers we need
+handlebars.create({
+  helpers: {
+    projectMeta: function (date, user) {
+      //we need to format the date to easier human readable
+      let created = new Date(date);
+      let output =
+        created.getMonth() +
+        '/' +
+        created.getDate() +
+        '/' +
+        created.getFullYear();
+
+      //tag the user onto the end as well
+      output += ' - ' + user;
+
+      return output;
+    },
+  },
+});
+
 //setup handlebars defaults
 app.set('view engine', 'tmpl');
 app.engine(
