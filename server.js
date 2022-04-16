@@ -29,9 +29,6 @@ app.engine(
   })
 );
 app.use(express.static('public'));
-app.get('/', (req, res) => {
-  res.render('main', { layout: 'index' });
-});
 
 app.use(session(sess));
 
