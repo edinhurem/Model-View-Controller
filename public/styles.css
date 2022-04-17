@@ -54,3 +54,17 @@ footer {
   display: inline-block;
   vertical-align: top;
 }
+
+.dashboard-list .project-wrapper {
+  border: 0px solid transparent;
+  cursor: pointer;
+}
+
+.dashboard-list .project-content {
+  display: none;
+}
+
+.dashboard-list .project-header {
+  border-radius: 10px;
+  cursor: pointer;
+}

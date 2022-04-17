@@ -1,0 +1,22 @@
+<div class="col-sm-12">
+  {{#each data}}
+    <div class="project-container row" data-id="{{id}}">
+      <div class="project-wrapper col-sm-12">
+        <div class="row">
+          <div class="project-header col-sm-12">
+              <div class="row">
+                <div class="project-name col-sm-7">{{name}}</div>
+                <div class="project-creator col-sm-5">
+                  <div class="project-date inline-block">{{date_created}}</div>
+                  <div class="project-user inline-block"> - {{user.name}}</div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="project-content col-sm-12">
+          {{description}}
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
