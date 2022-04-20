@@ -9,7 +9,7 @@ const reactionCount = async () =>
 
 module.exports = {
   // Get all thoughts
-  getThought(req, res) {
+  getThoughts(req, res) {
     Thought.find()
       .then(async (thoughts) => {
         const thoughtObj = {
@@ -70,7 +70,17 @@ module.exports = {
         res.status(500).json(err);
       });
   },
-
+  updateThought(req, res) {
+    console.log(req.params);
+    Thought.updateOne(
+      { _id: ObjectId(req.params._id) },
+      { $set: req.body },
+      (err, result) => {
+        if (err) throw err;
+        res.send(result);
+      }
+    );
+  },
   // Add an thought to a student
   addReaction(req, res) {
     console.log('You are adding a reaction');
@@ -90,7 +100,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   // Remove thought from a student
-  removeThought(req, res) {
+  removeReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: { reactionId: req.params.reactionId } } },

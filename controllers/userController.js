@@ -10,7 +10,7 @@ const friendCount = async () =>
 
 module.exports = {
   // Get all students
-  getUser(req, res) {
+  getUsers(req, res) {
     User.find()
       .then(async (users) => {
         const userObj = {
@@ -60,7 +60,17 @@ module.exports = {
         res.status(500).json(err);
       });
   },
-
+  updateUser(req, res) {
+    console.log(req.params);
+    User.updateOne(
+      { _id: ObjectId(req.params._id) },
+      { $set: req.body },
+      (err, result) => {
+        if (err) throw err;
+        res.send(result);
+      }
+    );
+  },
   // Add an thought to a student
   addThought(req, res) {
     console.log('You are adding a thought');
