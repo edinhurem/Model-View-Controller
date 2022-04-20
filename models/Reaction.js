@@ -29,5 +29,4 @@ const reactionSchema = new Schema(
   }
 );
 
-const Thought = model('thought', thoughtSchema);
-module.exports = Thought;
+module.exports = reactionSchema;
