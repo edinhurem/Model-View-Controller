@@ -1,8 +1,9 @@
 const { connect, connection } = require('mongoose');
 
 const connectionString =
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/' + process.env.DB_NAME;
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/undefined';
 
+console.log('Connectiong to DB: ' + connectionString);
 connect(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

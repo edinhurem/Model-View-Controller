@@ -2,22 +2,12 @@ const { ObjectId } = require('mongoose').Types;
 const { UCS2_GENERAL_CI } = require('mysql/lib/protocol/constants/charsets');
 const { User, Thought } = require('../models');
 
-// TODO: Create an aggregate function to get the number of students overall
-const friendCount = async () =>
-  User.aggregate()
-    // Your code here
-    .then((friendCount) => friendCount);
-
 module.exports = {
   // Get all students
   getUsers(req, res) {
     User.find()
       .then(async (users) => {
-        const userObj = {
-          users,
-          friendCount: users.friends.,
-        };
-        return res.json(userObj);
+        return res.json(users);
       })
       .catch((err) => {
         console.log(err);
@@ -32,9 +22,7 @@ module.exports = {
       .then(async (user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
-          : res.json({
-              user,
-            })
+          : res.json(user)
       )
       .catch((err) => {
         console.log(err);
@@ -63,7 +51,7 @@ module.exports = {
   updateUser(req, res) {
     console.log(req.params);
     User.updateOne(
-      { _id: ObjectId(req.params._id) },
+      { _id: ObjectId(req.params.userId) },
       { $set: req.body },
       (err, result) => {
         if (err) throw err;

@@ -1,22 +1,12 @@
 const { ObjectId } = require('mongoose').Types;
 const { Thought, Reaction } = require('../models');
 
-// TODO: Create an aggregate function to get the number of students overall
-const reactionCount = async () =>
-  Thought.aggregate()
-    // Your code here
-    .then((reactionCount) => reactionCount);
-
 module.exports = {
   // Get all thoughts
   getThoughts(req, res) {
     Thought.find()
       .then(async (thoughts) => {
-        const thoughtObj = {
-          thoughts,
-          reactionCount: await reactionCount(),
-        };
-        return res.json(thoughtObj);
+        return res.json(thoughts);
       })
       .catch((err) => {
         console.log(err);
@@ -43,7 +33,15 @@ module.exports = {
   // create a new thought
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: 'No such thought exists' })
+          : User.findOneAndUpdate(
+              { username: req.body.username },
+              { $addToSet: { thoughts: thought._id } },
+              { new: true }
+            )
+      )
       .catch((err) => res.status(500).json(err));
   },
   // Delete a user and remove them from the course

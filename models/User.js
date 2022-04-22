@@ -38,10 +38,15 @@ const userSchema = new Schema(
   }
 );
 
-//create our virtual field
-//userSchema.virtual('friendCount').get(function () {
-//  return this.friends.length;
-//});
+//create our virtual fields
+userSchema.virtual('friendCount').get(function () {
+  return this.friends.length;
+});
 
+userSchema.virtual('thoughtCount').get(function () {
+  return this.thoughts.length;
+});
+
+//initialize the model
 const User = model('user', userSchema);
 module.exports = User;
