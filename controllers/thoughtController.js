@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongoose').Types;
-const { Thought, Reaction } = require('../models');
+const { User, Thought, Reaction } = require('../models');
 
 module.exports = {
   // Get all thoughts
@@ -15,15 +15,13 @@ module.exports = {
   },
   // Get a single thought
   getSingleThought(req, res) {
-    User.findOne({ _id: req.params.thoughtId })
+    Thought.findOne({ _id: req.params.thoughtId })
       .select('-__v')
       .lean()
       .then(async (thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
-          : res.json({
-              thought,
-            })
+          : res.json(thought)
       )
       .catch((err) => {
         console.log(err);
@@ -33,16 +31,20 @@ module.exports = {
   // create a new thought
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) =>
+      .then((thought) => {
         !thought
           ? res.status(404).json({ message: 'No such thought exists' })
           : User.findOneAndUpdate(
               { username: req.body.username },
               { $addToSet: { thoughts: thought._id } },
               { new: true }
-            )
-      )
-      .catch((err) => res.status(500).json(err));
+            );
+        res.json(thought);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
   // Delete a user and remove them from the course
   deleteThought(req, res) {
@@ -71,7 +73,7 @@ module.exports = {
   updateThought(req, res) {
     console.log(req.params);
     Thought.updateOne(
-      { _id: ObjectId(req.params._id) },
+      { _id: ObjectId(req.params.thoughtId) },
       { $set: req.body },
       (err, result) => {
         if (err) throw err;

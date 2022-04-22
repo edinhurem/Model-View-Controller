@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const { Schema, model } = require('mongoose');
 
 // Schema to create Student model
