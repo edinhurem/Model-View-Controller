@@ -15,7 +15,7 @@ module.exports = {
       .then(async (users) => {
         const userObj = {
           users,
-          friendCount: await friendCount(),
+          friendCount: users.friends.,
         };
         return res.json(userObj);
       })
